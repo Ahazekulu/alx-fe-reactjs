@@ -32,3 +32,9 @@
     ]
   }
 }
+
+"scripts": {
+  "start": "vite",
+  "build": "vite build",
+  "preview": "vite preview"
+}
