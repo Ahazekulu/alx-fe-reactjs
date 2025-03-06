@@ -1,3 +1,6 @@
+import React from "react";
+import TodoList from "./components/TodoList";
+
 function App() {
   return (
     <div>
@@ -6,3 +9,5 @@ function App() {
     </div>
   );
 }
+
+export default App;
