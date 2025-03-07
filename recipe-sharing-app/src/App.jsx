@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
@@ -15,44 +15,46 @@ function App() {
   const generateRecommendations = useRecipeStore((state) => state.generateRecommendations);
 
   return (
-    <div>
-      <h1>Recipe Sharing App</h1>
-      <nav>
-        <Link to="/">Home</Link> | <Link to="/favorites">Favorites</Link> |{' '}
-        <Link to="/recommendations" onClick={generateRecommendations}>
-          Recommendations
-        </Link>
-      </nav>
-      <SearchBar />
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <AddRecipeForm />
-              <RecipeList />
-            </>
-          }
-        />
-        <Route
-          path="/recipe/:id"
-          element={
-            <RecipeDetailsWrapper
-              setEditingRecipe={setEditingRecipe}
-              editingRecipe={editingRecipe}
-            />
-          }
-        />
-        <Route path="/favorites" element={<FavoritesList />} />
-        <Route path="/recommendations" element={<RecommendationsList />} />
-      </Routes>
-      {editingRecipe && (
-        <EditRecipeForm
-          recipe={editingRecipe}
-          onClose={() => setEditingRecipe(null)}
-        />
-      )}
-    </div>
+    <BrowserRouter>
+      <div>
+        <h1>Recipe Sharing App</h1>
+        <nav>
+          <Link to="/">Home</Link> | <Link to="/favorites">Favorites</Link> |{' '}
+          <Link to="/recommendations" onClick={generateRecommendations}>
+            Recommendations
+          </Link>
+        </nav>
+        <SearchBar />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <AddRecipeForm />
+                <RecipeList />
+              </>
+            }
+          />
+          <Route
+            path="/recipe/:id"
+            element={
+              <RecipeDetailsWrapper
+                setEditingRecipe={setEditingRecipe}
+                editingRecipe={editingRecipe}
+              />
+            }
+          />
+          <Route path="/favorites" element={<FavoritesList />} />
+          <Route path="/recommendations" element={<RecommendationsList />} />
+        </Routes>
+        {editingRecipe && (
+          <EditRecipeForm
+            recipe={editingRecipe}
+            onClose={() => setEditingRecipe(null)}
+          />
+        )}
+      </div>
+    </BrowserRouter>
   );
 }
 
