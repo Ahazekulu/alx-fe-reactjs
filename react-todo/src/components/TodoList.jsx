@@ -36,8 +36,11 @@ const TodoList = () => {
           value={newTodo}
           onChange={(e) => setNewTodo(e.target.value)}
           placeholder="Add a new todo"
+          data-testid="todo-input"
         />
-        <button type="submit">Add</button>
+        <button type="submit" data-testid="add-button">
+          Add
+        </button>
       </form>
       <ul>
         {todos.map((todo) => (
@@ -48,10 +51,16 @@ const TodoList = () => {
                 cursor: "pointer",
               }}
               onClick={() => toggleTodo(todo.id)}
+              data-testid={`todo-text-${todo.id}`}
             >
               {todo.text}
             </span>
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <button
+              onClick={() => deleteTodo(todo.id)}
+              data-testid={`delete-button-${todo.id}`}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
