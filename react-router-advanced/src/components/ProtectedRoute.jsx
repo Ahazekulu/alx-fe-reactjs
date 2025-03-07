@@ -1,7 +1,7 @@
 import { Navigate } from 'react-router-dom';
 
 function ProtectedRoute({ children }) {
-  const isAuthenticated = false; // Mock authentication state
+  const isAuthenticated = false;
   return isAuthenticated ? children : <Navigate to="/" />;
 }
 
