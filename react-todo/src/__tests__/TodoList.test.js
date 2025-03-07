@@ -39,6 +39,17 @@ describe('TodoList Component', () => {
     fireEvent.click(todoText);
     expect(todoText).not.toHaveStyle('text-decoration: none');
   });
+  test('does not add empty todo', () => {
+  render(<TodoList />);
+  const input = screen.getByTestId('todo-input');
+  const addButton = screen.getByTestId('add-button');
+  const initialLength = screen.getByTestId('todo-list').children.length;
+
+  fireEvent.change(input, { target: { value: '' } });
+  fireEvent.click(addButton);
+
+  expect(screen.getByTestId('todo-list').children).toHaveLength(initialLength);
+});
 
   // Test deleting a todo
   test('deletes a todo', () => {
