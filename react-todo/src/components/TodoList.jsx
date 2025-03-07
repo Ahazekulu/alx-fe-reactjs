@@ -25,16 +25,22 @@ function TodoList() {
     <div>
       <h2>Todo List</h2>
       <AddTodoForm addTodo={addTodo} />
-      <ul>
+      <ul data-testid="todo-list">
         {todos.map(todo => (
-          <li key={todo.id}>
+          <li key={todo.id} data-testid={`todo-item-${todo.id}`}>
             <span
               onClick={() => toggleTodo(todo.id)}
               style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}
+              data-testid={`todo-text-${todo.id}`}
             >
               {todo.text}
             </span>
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <button 
+              onClick={() => deleteTodo(todo.id)} 
+              data-testid={`delete-button-${todo.id}`}
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
