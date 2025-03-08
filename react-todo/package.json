@@ -8,6 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "jest"
+    "test": "react-scripts test"
   },
   "dependencies": {
     "react": "^18.2.0",
