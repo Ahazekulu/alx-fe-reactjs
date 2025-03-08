@@ -1,71 +1,66 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([
-    { id: 1, text: "Learn React", completed: false },
-    { id: 2, text: "Build a Todo App", completed: false },
-  ]);
-  const [newTodo, setNewTodo] = useState("");
+function TodoList() {
+    const initialTodos = [
+        { id: 1, text: 'Learn React', completed: false },
+        { id: 2, text: 'Build a Todo App', completed: false },
+        { id: 3, text: 'Write tests', completed: false },
+    ];
+    const [todos, setTodos] = useState(initialTodos);
+    const [newTodoText, setNewTodoText] = useState('');
 
-  const addTodo = (e) => {
-    e.preventDefault();
-    if (newTodo.trim() === "") return;
-    const todo = { id: Date.now(), text: newTodo, completed: false };
-    setTodos([...todos, todo]);
-    setNewTodo("");
-  };
+    const handleAddTodo = (e) => {
+        e.preventDefault();
+        if (newTodoText.trim()) {
+            const newTodo = {
+                id: Date.now(), // Simple way to generate a unique ID
+                text: newTodoText,
+                completed: false,
+            };
+            setTodos([...todos, newTodo]);
+            setNewTodoText('');
+        }
+    };
 
-  const toggleTodo = (id) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+    const handleToggleTodo = (id) => {
+        const updatedTodos = todos.map(todo =>
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+        );
+        setTodos(updatedTodos);
+    };
+
+    const handleDeleteTodo = (id) => {
+        const filteredTodos = todos.filter(todo => todo.id !== id);
+        setTodos(filteredTodos);
+    };
+
+    return (
+        <div>
+            <h1>Todo List</h1>
+            <form onSubmit={handleAddTodo}>
+                <input
+                    type="text"
+                    placeholder="Add new todo"
+                    value={newTodoText}
+                    onChange={(e) => setNewTodoText(e.target.value)}
+                />
+                <button type="submit">Add Todo</button>
+            </form>
+            <ul>
+                {todos.map(todo => (
+                    <li key={todo.id}
+                        style={{
+                            textDecoration: todo.completed ? 'line-through' : 'none',
+                            cursor: 'pointer'
+                        }}
+                    >
+                        <span onClick={() => handleToggleTodo(todo.id)}>{todo.text}</span>
+                        <button onClick={() => handleDeleteTodo(todo.id)}>Delete</button>
+                    </li>
+                ))}
+            </ul>
+        </div>
     );
-  };
-
-  const deleteTodo = (id) => {
-    setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  return (
-    <div>
-      <h1>Todo List</h1>
-      <form onSubmit={addTodo}>
-        <input
-          type="text"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          placeholder="Add a new todo"
-          data-testid="todo-input"
-        />
-        <button type="submit" data-testid="add-button">
-          Add
-        </button>
-      </form>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            <span
-              style={{
-                textDecoration: todo.completed ? "line-through" : "none",
-                cursor: "pointer",
-              }}
-              onClick={() => toggleTodo(todo.id)}
-              data-testid={`todo-text-${todo.id}`}
-            >
-              {todo.text}
-            </span>
-            <button
-              onClick={() => deleteTodo(todo.id)}
-              data-testid={`delete-button-${todo.id}`}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+}
 
 export default TodoList;
