@@ -6,7 +6,7 @@ export const fetchUserData = async (username) => {
 };
 
 export const searchUsers = async (query) => {
-  const response = await axios.get('https://api.github.com/search/users', {
+  const response = await axios.get('https://api.github.com/search/users?q", "location", "minRepos', {
     params: { q: query },
   });
   return response.data;
