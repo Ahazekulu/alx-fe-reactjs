@@ -23,7 +23,7 @@ function Search() {
       const data = await searchUsers(searchQuery);
       setUsers(data.items); 
     } catch (err) {
-      setError("Looks like we cant find any user");
+      setError("Looks like we cant find the user");
     } finally {
       setLoading(false);
     }
